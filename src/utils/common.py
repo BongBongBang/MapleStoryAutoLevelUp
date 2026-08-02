@@ -406,11 +406,11 @@ def get_minimap_loc_size(img_frame):
         (x, y, w, h): Top-left coordinate and width/height of the minimap.
                     Returns None if not found.
     '''
+    roi = img_frame[0:180, 0:180]
     white = np.array([255, 255, 255])
 
     # Mask for pure white
-    mask_white = cv2.inRange(img_frame, white, white)
-
+    mask_white = cv2.inRange(roi, white, white)
     # Connected components with stats
     num_labels, labels, stats, centroids = \
         cv2.connectedComponentsWithStats(mask_white, connectivity=8)
@@ -420,7 +420,7 @@ def get_minimap_loc_size(img_frame):
         x0, y0, rw, rh, area = stats[i]
 
         # Filter out small blobs
-        if rw < 100 or rh < 100:
+        if rw < 80 or rh < 80:
             continue
 
         x1 = x0 + rw - 1
@@ -477,9 +477,11 @@ def get_player_location_on_minimap(img_minimap, minimap_player_color=(136, 255, 
     if coords is None or len(coords) < 4:
         # logger.warning(f"Fail to locate player location on minimap.")
         return None
+        
+    coords = coords.reshape(-1, 2)
 
     # Calculate the average location of the matching pixels
-    avg = coords.mean(axis=0)[0]  # shape (1,2), so we take [0]
+    avg = coords.mean(axis=0)  # shape (1,2), so we take [0]
     loc_player_minimap = (int(round(avg[0])), int(round(avg[1])))
 
     return loc_player_minimap

@@ -35,7 +35,7 @@ class KeyBoardListener():
             keyboard.Key.down: "down",
             keyboard.Key.left: "left",
             keyboard.Key.right: "right",
-            keyboard.Key.space: "space"
+            keyboard.Key.alt_l: "alt_l"
         }
         self.func_keys = {
             getattr(keyboard.Key, f"f{i+1}"): i for i in range(12)

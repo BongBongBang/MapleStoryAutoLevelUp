@@ -23,7 +23,7 @@ key:
   aoe_skill: "q"            # 💥 AoE skill (e.g., Cleric's heal or Mage's lightning)
   directional_attack: "w"   # ⚔️ Basic directional attack (e.g., Magic Claw or throwing stars)
   teleport: "e"             # 🌀 Teleport skill. Set to "" if not usable
-  jump: "space"             # 🦘 Jump key
+  jump: "alt_l"             # 🦘 Jump key
   add_hp: "1"               # ❤️ Use HP potion. Set to "" to disable auto-healing
   add_mp: "2"               # 💧 Use MP potion. Set to "" to disable auto-mana
   return_home: "home"       # 🔁 Key to use return home scroll.
@@ -301,10 +301,10 @@ route_recoder:
 game_window:
   # 🪟 Game Window
   # Basic information about the game window setup
-  title: "MapleStory Worlds"   # 🎮 Game window title (used to detect the correct window)
-  size: [693, 1282]            # 📐 Game window size [height, width] in pixels, (Excluded title bar size)
+  title: "新楓之谷：經典版"   # 🎮 Game window title (used to detect the correct window)
+  size: [768, 1368]            # 📐 Game window size [height, width] in pixels, (Excluded title bar size)
   ratio_tolerance: 0.08        # 📐 Game window 16:9 tolerance
-  title_bar_height: 59         # 📐 Title Bar Height (Note it's before window resize)
+  title_bar_height: 32         # 📐 Title Bar Height (Note it's before window resize)
 
 email:
   # 📩 Email
