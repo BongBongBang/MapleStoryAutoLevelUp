@@ -19,7 +19,7 @@ class Config:
     teleport_key = "" # set to "", if need to disable teleport skill
 
     # Key for jumping.
-    jump_key = "space"
+    jump_key = "alt_l"
 
     # Key to use a health potion.
     heal_key = "1"

@@ -505,7 +505,8 @@ def get_all_other_player_locations_on_minimap(img_minimap, red_bgr=(0, 0, 255)):
         if coords is not None and len(coords) >= 3:
             logger.debug(f"Found {len(coords)} red pixels with tolerance {tolerance}")
             logger.debug(f"Color range: {lower_bgr} to {upper_bgr}")
-            return [tuple(pt[0]) for pt in coords]  # List of (x, y)
+            coords = coords.reshape(-1, 2)
+            return [tuple(map(int, pt)) for pt in coords]  # List of (x, y)
 
     # 如果所有容錯範圍都檢測不到，記錄調試信息
     logger.debug(f"Red dot detection failed with all tolerances: {tolerances}")
