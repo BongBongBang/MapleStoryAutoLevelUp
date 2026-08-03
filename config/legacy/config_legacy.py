@@ -17,7 +17,7 @@ class Config:
     # ────────────────
     aoe_skill_key = "q" # It can be monk's healing skill
     magic_claw_key = "w"
-    jump_key = "space"
+    jump_key = "alt_l"
     heal_key = "q"
     add_mp_key = "2" # Drink potion
     teleport_key = "e" # Mage's teleport skill

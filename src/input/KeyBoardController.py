@@ -275,7 +275,8 @@ class KeyBoardController():
             elif self.cmd_action == "teleport":
                 press_key(self.cfg["key"]["teleport"])
             elif self.cmd_action == "attack":
-                press_key(self.attack_key)
+                # press_key(self.attack_key)
+                press_key("ctrl")
                 self.t_last_skill = time.time()
             elif self.cmd_action == "add_hp":
                 press_key(self.cfg["key"]["add_hp"])
