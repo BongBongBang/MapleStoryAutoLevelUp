@@ -7,7 +7,7 @@ bot:
   # 🔁 Bot Settings
   mode: "normal"        # Options: "normal" "aux" "patrol"
   attack: "directional" # Options: "aoe_skill" "directional"
-  map: "snail_hunting_ground_3" # Please refer to config/config_data.yaml
+  map: "the_pig_beach" # Please refer to config/config_data.yaml
 
 key:
   # 🎮 Keyboard Mapping

@@ -52,6 +52,8 @@ eng_to_cn:
   moon_bunny: 月妙
   nependeath: 食人花
   dark_nependeath: 黑食人花
+  snail_hunting_ground_3: 蜗牛狩猎场3
+  the_pig_beach: 猪的海岸
 
 # Register mobs in each maps
 map_mobs_mapping:
@@ -77,3 +79,5 @@ map_mobs_mapping:
   black_mountain: [hodori, moon_bunny, black_axe_stump]
   disposed_flower_garden: [nependeath, dark_nependeath]
   mu_Lung_wild_bear_area_2: [grizzly, panda]
+  snail_hunting_ground_3: [snail, blue_snail]
+  the_pig_beach: [pig, ribbon_pig, iron_hook]

@@ -406,7 +406,7 @@ def get_minimap_loc_size(img_frame):
         (x, y, w, h): Top-left coordinate and width/height of the minimap.
                     Returns None if not found.
     '''
-    roi = img_frame[0:180, 0:180]
+    roi = img_frame[0:300, 0:300]
     white = np.array([255, 255, 255])
 
     # Mask for pure white
