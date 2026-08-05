@@ -407,7 +407,7 @@ class RouteRecorder():
         action = ""
         is_draw_blob = False
         key_press = self.kb.key_pressing
-        if "space" in key_press:
+        if "alt_l" in key_press:
             if "left" in key_press:
                 action = "left none jump"
             elif "right" in key_press:

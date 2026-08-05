@@ -26,7 +26,7 @@ class CommonConfigTests(unittest.TestCase):
   
     def test_get_player_location_on_minimap_with_local_debug_image(self):
         project_root = Path(__file__).resolve().parents[1]
-        image_path = project_root / "minimaps" / "lost_time_1" / "map.png"
+        image_path = project_root / "debug_img_minimap.png"
         minimap = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
 
         self.assertIsNotNone(minimap, f"Failed to load test image: {image_path}")

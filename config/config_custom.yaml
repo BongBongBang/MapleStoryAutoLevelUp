@@ -1,0 +1,9 @@
+health_monitor:
+  add_mp_percent: 15
+key:
+  add_hp: shift
+  add_mp: ins
+  directional_attack: control
+  jump: alt
+watchdog:
+  last_attack_timeout_action: go_home

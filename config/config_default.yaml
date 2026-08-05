@@ -7,7 +7,7 @@ bot:
   # 🔁 Bot Settings
   mode: "normal"        # Options: "normal" "aux" "patrol"
   attack: "directional" # Options: "aoe_skill" "directional"
-  map: "" # Please refer to config/config_data.yaml
+  map: "the_pig_beach" # Please refer to config/config_data.yaml
 
 key:
   # 🎮 Keyboard Mapping
@@ -20,14 +20,14 @@ key:
   #   - "ctrl":   Control key
   #   - "alt":    Alt key
   #   - "shift":  Shift key
-  aoe_skill: "q"            # 💥 AoE skill (e.g., Cleric's heal or Mage's lightning)
-  directional_attack: "w"   # ⚔️ Basic directional attack (e.g., Magic Claw or throwing stars)
-  teleport: "e"             # 🌀 Teleport skill. Set to "" if not usable
-  jump: "space"             # 🦘 Jump key
-  add_hp: "1"               # ❤️ Use HP potion. Set to "" to disable auto-healing
-  add_mp: "2"               # 💧 Use MP potion. Set to "" to disable auto-mana
-  return_home: "home"       # 🔁 Key to use return home scroll.
-  party: "p"                # ⌨️ Party window shortcut
+  aoe_skill: "q"                  # 💥 AoE skill (e.g., Cleric's heal or Mage's lightning)
+  directional_attack: "ctrl"    # ⚔️ Basic directional attack (e.g., Magic Claw or throwing stars)
+  teleport: "e"                   # 🌀 Teleport skill. Set to "" if not usable
+  jump: "alt_l"                   # 🦘 Jump key
+  add_hp: "1"                     # ❤️ Use HP potion. Set to "" to disable auto-healing
+  add_mp: "2"                     # 💧 Use MP potion. Set to "" to disable auto-mana
+  return_home: "home"             # 🔁 Key to use return home scroll.
+  party: "p"                      # ⌨️ Party window shortcut
 
 buff_skill:
   # 💫 Buff Skill
@@ -42,7 +42,7 @@ directional_attack:
   # 🗡️ Directional Attack
   # Directional attacks are basic attack/skills that only attack player left or right.
   # For examples, Mage’s Magic Claw, Thief’s dart throw, or even a snail shell toss are all directional attack
-  range_x: 350               # ↔️ Horizontal attack range (in pixels)
+  range_x: 80               # ↔️ Horizontal attack range (in pixels)
   range_y: 70                # ↕️ Vertical attack range (in pixels)
   cooldown: 0.9              # ⏱️ Time between attacks (in seconds)
   character_turn_delay: 0.02 # 🔄 Delay after turning before attacking (in seconds)
@@ -99,11 +99,11 @@ nametag:
   # 🏷️ NameTag Recognition
   # ⚠️ This feature is deprecated, using party red bar is way better than detecting nametag.
   # Detects your character's nametag on the game window to estimate player location.
-  enable: False   # ✅ Only switch back to 'True' when party red bar detection doesn't work for you
-  name: "example" # Load nametag/<name>.png as nametag template
-  mode: "grayscale"  # 🧪 Comparison mode for matching the nametag, Options: "grayscale" "white_mask" "histogram_eq"
+  enable: True    # ✅ Only switch back to 'True' when party red bar detection doesn't work for you
+  name: "nametag" # Load nametag/<name>.png as nametag template
+  mode: "white_mask"  # 🧪 Comparison mode for matching the nametag, Options: "grayscale" "white_mask" "histogram_eq"
   offset: [-50, 30]  # 🎯 Pixel offset from the top-left corner of the matched nametag to the character center 
-  diff_thres: 0.2     # 📏 Matching threshold, [0.0 ~ 1.0] — lower = more tolerant, higher = stricter
+  diff_thres: 0.9     # 📏 Matching threshold, [0.0 ~ 1.0] — lower = more tolerant, higher = stricter
 
   global_diff_thres: 0.2  # 🧠 Global detection fallback
   # If the diff is higher than this threshold, do a full-frame search.
@@ -134,11 +134,11 @@ monster_detect:
   # 💡 Feel free to test different modes to find what works best for your setup.
   mode: "contour_only"         # 🧠 Options: "color" "grayscale" "contour_only" "template_free"
   diff_thres: 0.8              # 📏 Diff threshold for template matching, [0.0 ~ 1.0] Lower = stricter match
-  search_box_margin: 50        # ➕ Additional margin(in pixels) around the attack box for monster searching
+  search_box_margin: 15        # ➕ Additional margin(in pixels) around the attack box for monster searching
   contour_blur: 5              # 🌫️ Gaussian blur kernel size used for contour smoothing (in "contour_only" mode).
   with_enemy_hp_bar: True      # ❤️ Enable smarter detection using enemy HP bars.
   hp_bar_color: [71, 204, 64]  # 💚 Enemy HP bar color (in BGR format)
-  max_mob_area_trigger: 1500   # 📏 How much does the mob need to overlap with attack range to be considered as a target
+  max_mob_area_trigger: 1      # 📏 How much does the mob need to overlap with attack range to be considered as a target
 
 channel_change:
   # 🔁 Auto change channel when other player detected
@@ -301,10 +301,10 @@ route_recoder:
 game_window:
   # 🪟 Game Window
   # Basic information about the game window setup
-  title: "MapleStory Worlds"   # 🎮 Game window title (used to detect the correct window)
-  size: [693, 1282]            # 📐 Game window size [height, width] in pixels, (Excluded title bar size)
+  title: "冒险岛怀旧服"   # 🎮 Game window title (used to detect the correct window)
+  size: [768, 1368]            # 📐 Game window size [height, width] in pixels, (Excluded title bar size)
   ratio_tolerance: 0.08        # 📐 Game window 16:9 tolerance
-  title_bar_height: 59         # 📐 Title Bar Height (Note it's before window resize)
+  title_bar_height: 32         # 📐 Title Bar Height (Note it's before window resize)
 
 email:
   # 📩 Email

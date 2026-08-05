@@ -13,3 +13,4 @@ test/
 *.exe
 *.spec
 venv/
+.vscode/
