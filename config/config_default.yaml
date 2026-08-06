@@ -42,8 +42,8 @@ directional_attack:
   # 🗡️ Directional Attack
   # Directional attacks are basic attack/skills that only attack player left or right.
   # For examples, Mage’s Magic Claw, Thief’s dart throw, or even a snail shell toss are all directional attack
-  range_x: 300               # ↔️ Horizontal attack range (in pixels)
-  range_y: 170                # ↕️ Vertical attack range (in pixels)
+  range_x: 125               # ↔️ Horizontal attack range (in pixels)
+  range_y: 25                # ↕️ Vertical attack range (in pixels)
   cooldown: 0.9              # ⏱️ Time between attacks (in seconds)
   character_turn_delay: 0.02 # 🔄 Delay after turning before attacking (in seconds)
 
@@ -134,7 +134,7 @@ monster_detect:
   #   - "yolo"          (requires a trained YOLO model, best for robust monster detection)
   # 💡 Feel free to test different modes to find what works best for your setup.
   mode: "contour_only"         # 🧠 Options: "color" "grayscale" "contour_only" "template_free" "yolo"
-  diff_thres: 0.8              # 📏 Diff threshold for template matching, [0.0 ~ 1.0] Lower = stricter match
+  diff_thres: 0.7              # 📏 Diff threshold for template matching, [0.0 ~ 1.0] Lower = stricter match
   search_box_margin: 15        # ➕ Additional margin(in pixels) around the attack box for monster searching
   contour_blur: 5              # 🌫️ Gaussian blur kernel size used for contour smoothing (in "contour_only" mode).
   with_enemy_hp_bar: True      # ❤️ Enable smarter detection using enemy HP bars.
@@ -142,7 +142,7 @@ monster_detect:
   max_mob_area_trigger: 1      # 📏 How much does the mob need to overlap with attack range to be considered as a target
   yolo:
     model_path: "train/models/monster_yolo/best.pt" # 🧠 Trained YOLO model path
-    conf_thres: 0.35          # 📏 Minimum confidence for YOLO detections
+    conf_thres: 0.45          # 📏 Minimum confidence for YOLO detections
     iou_thres: 0.45           # 📦 YOLO NMS IoU threshold
     imgsz: 416                # 🖼️ YOLO input size. Smaller is faster, larger may detect tiny monsters better
     device: "cpu"             # ⚙️ Options depend on your environment: "cpu" "cuda" "mps"

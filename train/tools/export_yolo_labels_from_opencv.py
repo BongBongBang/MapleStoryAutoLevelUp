@@ -147,7 +147,6 @@ def nms_height_width(monsters, iou_threshold):
 def detect_with_templates(img_roi, offset, templates, mode, diff_thres, blur, max_candidates_per_template):
     x0, y0 = offset
     monsters = []
-
     roi_cache = {}
     if mode == "contour_only":
         mask_roi = np.all(img_roi == [0, 0, 0], axis=2).astype(np.uint8) * 255
@@ -331,6 +330,8 @@ def main():
         mode,
         cfg["monster_detect"]["contour_blur"],
     )
+
+    print(f"Start pre-label imgs, mode: {mode}, diff_thres: {diff_thres}");
 
     for idx, image_path in enumerate(input_paths, start=1):
         img = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
