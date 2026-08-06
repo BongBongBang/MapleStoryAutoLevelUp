@@ -36,6 +36,7 @@ else:
 from src.engine.HealthMonitor import HealthMonitor
 from src.engine.Profiler import Profiler
 from src.engine.RuneSolver import RuneSolver
+from src.engine.YoloMonsterDetector import YoloMonsterDetector
 from src.engine.FiniteStateMachine import FiniteStateMachine
 from src.states.hunting import HuntingState
 from src.states.finding_rune import FindingRuneState
@@ -119,6 +120,7 @@ class MapleStoryAutoBot:
         self.health_monitor = None # Health monitor
         self.profiler = None # Profiler, for performance issue debugging
         self.rune_solver = None # Rune solver
+        self.yolo_monster_detector = None # Optional YOLO monster detector
 
         # Finite State Machine
         self.fsm = FiniteStateMachine()
@@ -271,6 +273,10 @@ class MapleStoryAutoBot:
 
         # Init rune solver
         self.rune_solver = RuneSolver(self.cfg)
+
+        # Init YOLO monster detector only when requested.
+        if self.cfg["monster_detect"]["mode"] == "yolo":
+            self.yolo_monster_detector = YoloMonsterDetector(self.cfg)
 
         # Reset all timers
         self.t_last_frame = time.time()
@@ -753,6 +759,46 @@ class MapleStoryAutoBot:
         x1, y1 = bottom_right
 
         img_roi = self.img_frame[y0:y1, x0:x1]
+
+        if self.cfg["monster_detect"]["mode"] == "yolo":
+            if self.yolo_monster_detector is None:
+                raise RuntimeError("YOLO monster detector is not initialized.")
+            monsters = self.yolo_monster_detector.detect(img_roi, (x0, y0))
+
+            if self.cfg["monster_detect"]["with_enemy_hp_bar"]:
+                mask = cv2.inRange(img_roi,
+                                   np.array(self.cfg["monster_detect"]["hp_bar_color"]),
+                                   np.array(self.cfg["monster_detect"]["hp_bar_color"]))
+                num_labels, labels, stats, centroids = \
+                    cv2.connectedComponentsWithStats(mask, connectivity=8)
+                for i in range(1, num_labels):
+                    x, y, w, h, area = stats[i]
+                    if area < 3:
+                        continue
+                    monsters.append({
+                        "name": "Health Bar",
+                        "position": (x0 + max(0, x), y0 + max(0, y + 10)),
+                        "size": (
+                            self.cfg["monster_detect"]["yolo"]["hp_bar_box_height"],
+                            self.cfg["monster_detect"]["yolo"]["hp_bar_box_width"]
+                        ),
+                        "score": 1.0,
+                    })
+
+            monsters = nms(monsters, iou_threshold=0.4)
+
+            if self.img_frame_debug is not None:
+                draw_rectangle(
+                    self.img_frame_debug, (x0, y0), (y1-y0, x1-x0),
+                    (255, 0, 0), "Mob Detection Box"
+                )
+                for monster in monsters:
+                    color = (0, 255, 255) if monster["name"] == "Health Bar" else (0, 255, 0)
+                    draw_rectangle(
+                        self.img_frame_debug, monster["position"], monster["size"],
+                        color, str(round(monster['score'], 2))
+                    )
+            return monsters
 
         # Shift player's location into ROI coordinate system
         px, py = self.loc_player
