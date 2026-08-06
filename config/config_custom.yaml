@@ -1,7 +1,9 @@
+bot:
+  attack: aoe_skill
 health_monitor:
   add_mp_percent: 15
 key:
-  add_hp: shift
+  add_hp: control
   add_mp: ins
   directional_attack: control
   jump: alt
