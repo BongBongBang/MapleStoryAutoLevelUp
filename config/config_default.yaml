@@ -42,8 +42,8 @@ directional_attack:
   # 🗡️ Directional Attack
   # Directional attacks are basic attack/skills that only attack player left or right.
   # For examples, Mage’s Magic Claw, Thief’s dart throw, or even a snail shell toss are all directional attack
-  range_x: 80               # ↔️ Horizontal attack range (in pixels)
-  range_y: 70                # ↕️ Vertical attack range (in pixels)
+  range_x: 300               # ↔️ Horizontal attack range (in pixels)
+  range_y: 170                # ↕️ Vertical attack range (in pixels)
   cooldown: 0.9              # ⏱️ Time between attacks (in seconds)
   character_turn_delay: 0.02 # 🔄 Delay after turning before attacking (in seconds)
 
@@ -169,8 +169,8 @@ ui_coords:
   # Buttons and menu cooridinate in game window
   # Expect all these coordinate is on orignal window size (get it from frame screenshot)
   ui_y_start: 610                       # 📐 UI y start
-  "menu": [1140, 730]                   # 📐 Menu coordinate on game window UI
-  "channel": [1140, 666]                # 📐 Channel button coordinate
+  "menu": [1300, 730]                   # 📐 Menu coordinate on game window UI
+  "channel": [1300, 666]                # 📐 Channel button coordinate
   "random_channel": [877, 161]          # 📐 Random channel button in the channel selection menu
   "random_channel_confirm": [585, 420]  # 📐 Confirm button after clicking channel switch
   "select_character": [888, 275]        # 📐 Select character button during login
