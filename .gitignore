@@ -13,3 +13,4 @@ test/
 *.spec
 venv/
 .vscode/
+.conda/
