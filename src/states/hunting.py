@@ -24,12 +24,15 @@ class HuntingState(State):
     def on_frame(self):
         # Get commend from route map
         self.bot.update_cmd_by_route()
+        self.bot.profiler.mark("Route Command")
 
         # Check if reach goal on route map
         self.bot.check_reach_goal()
+        self.bot.profiler.mark("Monster Detection")
 
         # Get attack commend by detecting mobs near players
         self.bot.update_cmd_by_mob_detection()
+        self.bot.profiler.mark("Stuck Detection")
 
         # If player stuck for too long, perform a random command
         if self.bot.is_player_stuck():

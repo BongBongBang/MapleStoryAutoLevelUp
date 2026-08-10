@@ -1,9 +1,14 @@
-bot:
-  attack: aoe_skill
+aoe_skill:
+  range_x: 150
+  range_y: 100
+directional_attack:
+  range_x: 150
+  range_y: 100
 health_monitor:
+  add_hp_percent: 40
   add_mp_percent: 15
 key:
-  add_hp: control
+  add_hp: shift
   add_mp: ins
   directional_attack: control
   jump: alt
