@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 from src.engine.HealthMonitor import HealthMonitor
-from src.utils.common import load_image, load_yaml
+from src.utils.common import load_image, load_yaml, get_bar_percent
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,7 +39,7 @@ class OpenCVTest(unittest.TestCase):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    def test_health_monitor(self):
+    def test_health_monitor2(self):
         cfg_path = PROJECT_ROOT / "config" / "config_default.yaml"
         cfg_yaml = load_yaml(cfg_path)
         health_monitor = HealthMonitor(cfg_yaml, None)
@@ -52,6 +52,41 @@ class OpenCVTest(unittest.TestCase):
         print(health_monitor.get_hp_mp_exp_percent())
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+
+    def test_hp_monitor(self):
+        img_path = PROJECT_ROOT / "test.png"
+        img_frame = load_image(img_path)
+        img_frame_gray = cv2.cvtColor(img_frame, cv2.COLOR_BGR2GRAY)
+        white_mask = cv2.inRange(img_frame_gray, 240, 255)
+        cv2.imshow("white_mask", white_mask)
+        contours, _ = cv2.findContours(white_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        loc_size_bars = []
+        for cnt in contours:
+            x, y, w, h = cv2.boundingRect(cnt)
+            # for game window resolution 752x1282, w/h == 7.5, w*h == 3630
+            if 4 < w/h < 12 and 800 < w*h < 5000:
+                loc_size_bars.append((x, y, w, h))
+        # 复制原图，避免修改原始图像
+        img_with_boxes = img_frame.copy()
+
+        # 遍历每个尺寸条，绘制矩形框
+        for i, (x, y, w, h) in enumerate(loc_size_bars):
+            # 绘制绿色矩形框，线宽为2
+            cv2.rectangle(img_with_boxes, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+        cv2.imshow("Detected Size Bars", img_with_boxes)
+
+        # sort contours by x coordinate
+        loc_size_bars = sorted(loc_size_bars, key=lambda bar: bar[0])
+
+        bar_percents = []
+        for x, y, w, h in loc_size_bars:
+            bar_percents.append(get_bar_percent(img_frame[y:y+h, x:x+w]))
+        print(bar_percents)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
 
 
 if __name__ == "__main__":
