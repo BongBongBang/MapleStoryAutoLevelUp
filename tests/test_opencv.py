@@ -47,8 +47,8 @@ class OpenCVTest(unittest.TestCase):
         img_path = PROJECT_ROOT / "test.png"
         img_frame = load_image(img_path)
 
-        health_monitor.update_frame(img_frame)
-        cv2.imshow("img_frame", img_frame)
+        health_monitor.update_frame(img_frame[cfg_yaml["ui_coords"]["ui_y_start"]:, :])
+        cv2.imshow("img_frame", img_frame[cfg_yaml["ui_coords"]["ui_y_start"]:, :])
         print(health_monitor.get_hp_mp_exp_percent())
         cv2.waitKey(0)
         cv2.destroyAllWindows()
