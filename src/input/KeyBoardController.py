@@ -7,29 +7,29 @@ import threading
 import time
 
 # Library import
-import pydirectinput
-import pydirectinput
+import pyautogui
 from pynput import keyboard
+
+from src.utils.common import is_mac
 
 # Local import
 from src.utils.logger import logger
-from src.utils.common import is_mac
 
 if is_mac():
     import Quartz
 else:
     import pygetwindow as gw
 
-pydirectinput.PAUSE = 0  # remove delay
+pyautogui.PAUSE = 0  # remove delay
 
 def key_down(key):
     '''
     Press key down
     '''
     try:
-        pydirectinput.keyDown(key)
-    except pydirectinput.FailSafeException:
-        logger.warning("[key_down] pydirectinput failsafe triggered during key_down.")
+        pyautogui.keyDown(key)
+    except pyautogui.FailSafeException:
+        logger.warning("[key_down] pyautogui failsafe triggered during key_down.")
         recover_mouse()
 
 def key_up(key):
@@ -37,22 +37,22 @@ def key_up(key):
     Release key
     '''
     try:
-        pydirectinput.keyUp(key)
-    except pydirectinput.FailSafeException:
-        logger.warning("[key_up] pydirectinput failsafe triggered during key_up.")
+        pyautogui.keyUp(key)
+    except pyautogui.FailSafeException:
+        logger.warning("[key_up] pyautogui failsafe triggered during key_up.")
         recover_mouse()
 
 def recover_mouse():
     '''
-    Move mouse back to center to avoid pydirectinput failsafe
+    Move mouse back to center to avoid pyautogui failsafe
     '''
-    pydirectinput.FAILSAFE = False # Temp disasble failsafe to avoid nested exception
+    pyautogui.FAILSAFE = False # Temp disasble failsafe to avoid nested exception
 
-    screen_w, screen_h = pydirectinput.size()
-    pydirectinput.moveTo(screen_w // 2, screen_h // 2)
+    screen_w, screen_h = pyautogui.size()
+    pyautogui.moveTo(screen_w // 2, screen_h // 2)
     time.sleep(0.2) # Give it a moment to "cool down"
 
-    pydirectinput.FAILSAFE = True # Recover failsafe
+    pyautogui.FAILSAFE = True # Recover failsafe
 
 def press_key(key, duration=0.05):
     '''

@@ -120,7 +120,7 @@ class HealthMonitor:
         for cnt in contours:
             x, y, w, h = cv2.boundingRect(cnt)
             # for game window resolution 752x1282, w/h == 7.5, w*h == 3630
-            if 4 < w/h < 10 and 2500 < w*h < 5000:
+            if 4 < w/h < 12 and 800 < w*h < 5000:
                 loc_size_bars.append((x, y, w, h))
 
         # sort contours by x coordinate

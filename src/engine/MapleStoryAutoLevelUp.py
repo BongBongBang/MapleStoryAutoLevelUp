@@ -3,47 +3,67 @@ Execute this script:
 python mapleStoryAutoLevelUp.py --map cloud_balcony --monster brown_windup_bear,pink_windup_bear
 '''
 # Standard import
-import time
-import random
 import argparse
+import datetime
 import glob
-import sys
 import logging
 import os
-import datetime
+import random
+import sys
 import threading
+import time
+
+import cv2
 
 # Library import
 import numpy as np
-import cv2
 import yaml
+
+from src.input.KeyBoardController import KeyBoardController, press_key
+from src.input.KeyBoardListener import KeyBoardListener
+from src.utils.common import (
+    activate_game_window,
+    click_in_game_window,
+    debug_minimap_colors,
+    draw_rectangle,
+    find_pattern_sqdiff,
+    get_all_other_player_locations_on_minimap,
+    get_mask,
+    get_minimap_loc_size,
+    get_player_location_on_minimap,
+    is_img_16_to_9,
+    is_mac,
+    load_image,
+    load_yaml,
+    mask_route_colors,
+    nms,
+    normalize_pixel_coordinate,
+    override_cfg,
+    resize_game_window,
+    screenshot,
+    to_opencv_hsv,
+)
 
 # Local import
 from src.utils.global_var import WINDOW_WORKING_SIZE
 from src.utils.logger import logger
-from src.utils.common import (find_pattern_sqdiff, draw_rectangle, screenshot, nms,
-    load_image, get_mask, get_minimap_loc_size, get_player_location_on_minimap,
-    is_mac, override_cfg, load_yaml, get_all_other_player_locations_on_minimap,
-    click_in_game_window, mask_route_colors, to_opencv_hsv, debug_minimap_colors,
-    activate_game_window, is_img_16_to_9, normalize_pixel_coordinate, resize_game_window
-)
-from src.input.KeyBoardController import KeyBoardController, press_key
-from src.input.KeyBoardListener import KeyBoardListener
+
 if is_mac():
     from src.input.GameWindowCapturorForMac import GameWindowCapturor
 else:
     from src.input.GameWindowCapturor import GameWindowCapturor
+from src.engine.FiniteStateMachine import FiniteStateMachine
 from src.engine.HealthMonitor import HealthMonitor
 from src.engine.Profiler import Profiler
 from src.engine.RuneSolver import RuneSolver
 from src.engine.YoloMonsterDetector import YoloMonsterDetector
-from src.engine.FiniteStateMachine import FiniteStateMachine
-from src.states.hunting import HuntingState
-from src.states.finding_rune import FindingRuneState
-from src.states.near_rune import NearRuneState
-from src.states.solving_rune import SolvingRuneState
 from src.states.auxiliary import AuxiliaryState
+from src.states.finding_rune import FindingRuneState
+from src.states.hunting import HuntingState
+from src.states.near_rune import NearRuneState
 from src.states.patrol import PatrolState
+from src.states.solving_rune import SolvingRuneState
+
 
 class MapleStoryAutoBot:
     '''
