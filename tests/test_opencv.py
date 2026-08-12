@@ -4,6 +4,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from src.engine.HealthMonitor import HealthMonitor
 from src.utils.common import load_image, load_yaml
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +36,20 @@ class OpenCVTest(unittest.TestCase):
         for pt in zip(*match_locations[::-1]):
             print(pt)
 
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def test_health_monitor(self):
+        cfg_path = PROJECT_ROOT / "config" / "config_default.yaml"
+        cfg_yaml = load_yaml(cfg_path)
+        health_monitor = HealthMonitor(cfg_yaml, None)
+
+        img_path = PROJECT_ROOT / "test.png"
+        img_frame = load_image(img_path)
+
+        health_monitor.update_frame(img_frame)
+        cv2.imshow("img_frame", img_frame)
+        print(health_monitor.get_hp_mp_exp_percent())
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 

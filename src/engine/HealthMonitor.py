@@ -6,12 +6,15 @@ When player's HP/MP drop to specific threshold, it'd press key to drink potion
 # Standard Import
 import threading
 import time
+
 import cv2
+
+from src.input.KeyBoardController import press_key
+from src.utils.common import get_bar_percent
 
 # Local Import
 from src.utils.logger import logger
-from src.utils.common import get_bar_percent
-from src.input.KeyBoardController import press_key
+
 
 class HealthMonitor:
     '''
